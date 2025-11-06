@@ -1,0 +1,93 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <!-- Logo -->
+    <div class="nav-brand">
+      <a routerLink="/" class="logo-link">
+        <div class="logo-icon">🚀</div>
+        <span class="logo-text">YourApp</span>
+      </a>
+    </div>
+
+    <!-- Navigation Links -->
+    <div class="nav-menu" [class.active]="isMenuOpen">
+      <div class="nav-links">
+        <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <i class="nav-icon">🏠</i>
+          Home
+        </a>
+        <a routerLink="/features" class="nav-link" routerLinkActive="active">
+          <i class="nav-icon">⭐</i>
+          Features
+        </a>
+        <a routerLink="/pricing" class="nav-link" routerLinkActive="active">
+          <i class="nav-icon">💰</i>
+          Pricing
+        </a>
+        <a routerLink="/about" class="nav-link" routerLinkActive="active">
+          <i class="nav-icon">👥</i>
+          About
+        </a>
+        <a routerLink="/contact" class="nav-link" routerLinkActive="active">
+          <i class="nav-icon">📞</i>
+          Contact
+        </a>
+      </div>
+
+      <!-- Auth Buttons -->
+      <div class="nav-auth" *ngIf="!isLoggedIn">
+        <a routerLink="/login" class="auth-btn login-btn">
+          <i class="btn-icon">🔑</i>
+          Sign In
+        </a>
+        <a routerLink="/register" class="auth-btn register-btn">
+          <i class="btn-icon">✨</i>
+          Sign Up
+        </a>
+      </div>
+
+      <!-- User Menu -->
+      <div class="user-menu" *ngIf="isLoggedIn">
+        <div class="user-info" (click)="toggleUserDropdown()">
+          <div class="user-avatar">
+            <img [src]="userAvatar" alt="User" class="avatar-img" *ngIf="userAvatar">
+            <div class="avatar-placeholder" *ngIf="!userAvatar">
+              {{ getUserInitials() }}
+            </div>
+          </div>
+          <span class="user-name">{{ userName }}</span>
+          <i class="dropdown-arrow">▼</i>
+        </div>
+
+        <div class="user-dropdown" [class.show]="showUserDropdown">
+          <a routerLink="/profile" class="dropdown-item">
+            <i class="dropdown-icon">👤</i>
+            Profile
+          </a>
+          <a routerLink="/dashboard" class="dropdown-item">
+            <i class="dropdown-icon">📊</i>
+            Dashboard
+          </a>
+          <a routerLink="/settings" class="dropdown-item">
+            <i class="dropdown-icon">⚙️</i>
+            Settings
+          </a>
+          <div class="dropdown-divider"></div>
+          <a (click)="onLogout()" class="dropdown-item logout">
+            <i class="dropdown-icon">🚪</i>
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-toggle" (click)="toggleMenu()">
+      <span class="hamburger-line" [class.active]="isMenuOpen"></span>
+      <span class="hamburger-line" [class.active]="isMenuOpen"></span>
+      <span class="hamburger-line" [class.active]="isMenuOpen"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay" [class.active]="isMenuOpen" (click)="toggleMenu()"></div>
+</nav>

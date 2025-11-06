@@ -1,0 +1,125 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h2>Create Account</h2>
+      <p>Join us today!</p>
+    </div>
+
+    <form class="auth-form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <div class="input-container">
+            <i class="icon">👤</i>
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              placeholder="First name"
+              class="form-input"
+            >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <div class="input-container">
+            <i class="icon">👤</i>
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
+              placeholder="Last name"
+              class="form-input"
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-container">
+          <i class="icon">✉️</i>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            placeholder="Enter your email"
+            class="form-input"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-container">
+          <i class="icon">🔒</i>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            placeholder="Create a password"
+            class="form-input"
+          >
+        </div>
+        <div class="password-strength">
+          <div class="strength-bar" [class]="getPasswordStrength()"></div>
+          <span class="strength-text">{{ getPasswordStrengthText() }}</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="input-container">
+          <i class="icon">🔒</i>
+          <input
+            type="password"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            placeholder="Confirm your password"
+            class="form-input"
+          >
+        </div>
+      </div>
+
+      <div class="form-options">
+        <label class="checkbox-container">
+          <input type="checkbox" formControlName="agreeTerms">
+          <span class="checkmark"></span>
+          I agree to the <a href="#" class="terms-link">Terms & Conditions</a>
+        </label>
+      </div>
+
+      <button type="submit" class="auth-button" [disabled]="!registerForm.valid">
+        <span *ngIf="!loading">Create Account</span>
+        <span *ngIf="loading" class="loading-spinner"></span>
+      </button>
+    </form>
+
+    <div class="auth-divider">
+      <span>Or sign up with</span>
+    </div>
+
+    <div class="social-auth">
+      <button class="social-button google">
+        <i>G</i>
+        Google
+      </button>
+      <button class="social-button github">
+        <i>⚡</i>
+        GitHub
+      </button>
+    </div>
+
+    <div class="auth-footer">
+      <p>Already have an account? <a routerLink="/login" class="auth-link">Sign in</a></p>
+    </div>
+  </div>
+
+  <!-- Decorative Background -->
+  <div class="decoration">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+</div>
