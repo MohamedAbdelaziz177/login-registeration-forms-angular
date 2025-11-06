@@ -1,31 +1,125 @@
 <footer class="footer">
   <div class="footer-container">
-    <div class="footer-section">
-      <h3>ShopMe</h3>
-      <p>Your one-stop shop for the latest trends and deals.</p>
+    <!-- Main Footer Content -->
+    <div class="footer-main">
+      <!-- Company Info -->
+      <div class="footer-section company-info">
+        <div class="footer-logo">
+          <div class="logo-icon">🚀</div>
+          <span class="logo-text">YourApp</span>
+        </div>
+        <p class="company-description">
+          Building amazing experiences for users worldwide. Join us in creating the future of digital innovation.
+        </p>
+        <div class="social-links">
+          <a href="#" class="social-link" aria-label="Twitter">
+            <i class="social-icon">🐦</i>
+          </a>
+          <a href="#" class="social-link" aria-label="Facebook">
+            <i class="social-icon">📘</i>
+          </a>
+          <a href="#" class="social-link" aria-label="LinkedIn">
+            <i class="social-icon">💼</i>
+          </a>
+          <a href="#" class="social-link" aria-label="GitHub">
+            <i class="social-icon">⚡</i>
+          </a>
+          <a href="#" class="social-link" aria-label="Instagram">
+            <i class="social-icon">📷</i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Product Links -->
+      <div class="footer-section">
+        <h3 class="footer-heading">Product</h3>
+        <ul class="footer-links">
+          <li><a routerLink="/features" class="footer-link">Features</a></li>
+          <li><a routerLink="/pricing" class="footer-link">Pricing</a></li>
+          <li><a routerLink="/templates" class="footer-link">Templates</a></li>
+          <li><a routerLink="/demo" class="footer-link">Live Demo</a></li>
+          <li><a routerLink="/download" class="footer-link">Download</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources Links -->
+      <div class="footer-section">
+        <h3 class="footer-heading">Resources</h3>
+        <ul class="footer-links">
+          <li><a routerLink="/documentation" class="footer-link">Documentation</a></li>
+          <li><a routerLink="/tutorials" class="footer-link">Tutorials</a></li>
+          <li><a routerLink="/blog" class="footer-link">Blog</a></li>
+          <li><a routerLink="/support" class="footer-link">Support</a></li>
+          <li><a routerLink="/community" class="footer-link">Community</a></li>
+        </ul>
+      </div>
+
+      <!-- Company Links -->
+      <div class="footer-section">
+        <h3 class="footer-heading">Company</h3>
+        <ul class="footer-links">
+          <li><a routerLink="/about" class="footer-link">About Us</a></li>
+          <li><a routerLink="/careers" class="footer-link">Careers</a></li>
+          <li><a routerLink="/press" class="footer-link">Press</a></li>
+          <li><a routerLink="/partners" class="footer-link">Partners</a></li>
+          <li><a routerLink="/contact" class="footer-link">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="footer-section newsletter">
+        <h3 class="footer-heading">Stay Updated</h3>
+        <p class="newsletter-description">
+          Subscribe to our newsletter for the latest updates and features.
+        </p>
+        <form class="newsletter-form" (ngSubmit)="onNewsletterSubmit()">
+          <div class="input-group">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="newsletter-input"
+              [(ngModel)]="newsletterEmail"
+              name="newsletterEmail"
+              required
+            >
+            <button type="submit" class="newsletter-button">
+              <i class="send-icon">✈️</i>
+            </button>
+          </div>
+        </form>
+        <p class="newsletter-note">No spam, unsubscribe at any time.</p>
+      </div>
     </div>
 
-    <div class="footer-section">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/shop">Shop</a></li>
-        <li><a routerLink="/about">About</a></li>
-        <li><a routerLink="/contact">Contact</a></li>
-      </ul>
-    </div>
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <div class="copyright">
+          <p>&copy; 2024 YourApp. All rights reserved.</p>
+        </div>
 
-    <div class="footer-section">
-      <h4>Follow Us</h4>
-      <div class="social-icons">
-        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-        <a href="#"><i class="fa-brands fa-twitter"></i></a>
-        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <div class="footer-legal">
+          <a routerLink="/privacy" class="legal-link">Privacy Policy</a>
+          <a routerLink="/terms" class="legal-link">Terms of Service</a>
+          <a routerLink="/cookies" class="legal-link">Cookie Policy</a>
+        </div>
+
+        <div class="footer-badges">
+          <div class="badge">
+            <i class="badge-icon">🔒</i>
+            <span>SSL Secure</span>
+          </div>
+          <div class="badge">
+            <i class="badge-icon">🌍</i>
+            <span>Worldwide</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="footer-bottom">
-    © {{ currentYear }} ShopMe. All rights reserved.
-  </div>
+  <!-- Back to Top Button -->
+  <button class="back-to-top" (click)="scrollToTop()" [class.visible]="isBackToTopVisible">
+    <i class="arrow-icon">↑</i>
+  </button>
 </footer>

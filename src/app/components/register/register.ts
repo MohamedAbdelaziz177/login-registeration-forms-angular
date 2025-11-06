@@ -7,6 +7,7 @@ import {NgIf} from '@angular/common';
     ReactiveFormsModule,
     NgIf
   ],
+  standalone: true,
   templateUrl: './register.html',
   styleUrl: './register.css',
 })

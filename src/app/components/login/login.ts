@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
   imports: [
     ReactiveFormsModule
   ],
+  standalone: true,
   templateUrl: './login.html',
   styleUrl: './login.css',
 })

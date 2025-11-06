@@ -1,14 +1,156 @@
 <div class="home-container">
-  <h2 class="section-title">Featured Products</h2>
-
-  <div class="product-grid">
-    <div class="product-card" *ngFor="let product of products">
-      <img [src]="product.image" [alt]="product.name" class="product-image" />
-      <div class="product-info">
-        <h3>{{ product.name }}</h3>
-        <p class="price">${{ product.price }}</p>
-        <button class="btn">Add to Cart</button>
+  <!-- Header Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Task Management System</h1>
+      <p class="hero-subtitle">Organize your tasks efficiently and boost your productivity</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" (click)="createNewTask()">
+          <i class="btn-icon">➕</i>
+          Create New Task
+        </button>
+        <button class="btn btn-secondary">
+          <i class="btn-icon">📊</i>
+          View Analytics
+        </button>
       </div>
     </div>
-  </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-icon">📝</div>
+        <div class="stat-info">
+          <h3>{{ totalTasks }}</h3>
+          <p>Total Tasks</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏰</div>
+        <div class="stat-info">
+          <h3>{{ pendingTasks }}</h3>
+          <p>Pending</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">✅</div>
+        <div class="stat-info">
+          <h3>{{ completedTasks }}</h3>
+          <p>Completed</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tasks Section -->
+  <section class="tasks-section">
+    <div class="section-header">
+      <h2 class="section-title">Your Tasks</h2>
+      <div class="section-actions">
+        <div class="filter-group">
+          <select class="filter-select" [(ngModel)]="selectedFilter" (change)="filterTasks()">
+            <option value="all">All Tasks</option>
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+            <option value="urgent">Urgent</option>
+          </select>
+          <select class="sort-select" [(ngModel)]="selectedSort" (change)="sortTasks()">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="deadline">Deadline</option>
+            <option value="priority">Priority</option>
+          </select>
+        </div>
+        <div class="search-box">
+          <i class="search-icon">🔍</i>
+          <input
+            type="text"
+            placeholder="Search tasks..."
+            class="search-input"
+            [(ngModel)]="searchQuery"
+            (input)="searchTasks()"
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Tasks Grid -->
+    <div class="tasks-grid" *ngIf="filteredTasks.length > 0; else noTasks">
+      <div
+        class="task-card"
+        *ngFor="let task of filteredTasks"
+        [class.urgent]="task.priority === 'high'"
+        [class.completed]="task.completed"
+      >
+        <div class="task-header">
+          <div class="task-meta">
+            <span class="task-priority" [class]="'priority-' + task.priority">
+              {{ task.priority }}
+            </span>
+            <span class="task-category">{{ task.category }}</span>
+          </div>
+          <div class="task-actions">
+            <button class="icon-btn" (click)="toggleTaskCompletion(task)" [title]="task.completed ? 'Mark as Pending' : 'Mark as Complete'">
+              <i class="action-icon">{{ task.completed ? '↶' : '✓' }}</i>
+            </button>
+            <button class="icon-btn" (click)="editTask(task)" title="Edit Task">
+              <i class="action-icon">✏️</i>
+            </button>
+            <button class="icon-btn delete" (click)="deleteTask(task)" title="Delete Task">
+              <i class="action-icon">🗑️</i>
+            </button>
+          </div>
+        </div>
+
+        <div class="task-body">
+          <h3 class="task-title">{{ task.name }}</h3>
+          <p class="task-description">{{ task.description }}</p>
+
+          <div class="task-image" *ngIf="task.imageUrl">
+            <img [src]="task.imageUrl" [alt]="task.name" class="task-img">
+          </div>
+        </div>
+
+        <div class="task-footer">
+          <div class="task-deadline">
+            <i class="deadline-icon">📅</i>
+            <span class="deadline-text" [class.overdue]="isOverdue(task.deadline) && !task.completed">
+              {{ formatDeadline(task.deadline) }}
+            </span>
+          </div>
+          <div class="task-assignee">
+            <div class="assignee-avatar">
+              <img [src]="task.assignee.avatar" [alt]="task.assignee.name" *ngIf="task.assignee.avatar">
+              <div class="avatar-placeholder" *ngIf="!task.assignee.avatar">
+                {{ getInitials(task.assignee.name) }}
+              </div>
+            </div>
+            <span class="assignee-name">{{ task.assignee.name }}</span>
+          </div>
+        </div>
+
+        <div class="task-progress" *ngIf="task.completed">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="100"></div>
+          </div>
+          <span class="progress-text">Completed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Tasks State -->
+    <ng-template #noTasks>
+      <div class="no-tasks">
+        <div class="no-tasks-icon">📋</div>
+        <h3>No tasks found</h3>
+        <p>{{ searchQuery ? 'Try adjusting your search criteria' : 'Create your first task to get started' }}</p>
+        <button class="btn btn-primary" (click)="createNewTask()" *ngIf="!searchQuery">
+          Create Your First Task
+        </button>
+      </div>
+    </ng-template>
+  </section>
+
+  <!-- Quick Actions Floating Button -->
+  <button class="floating-action-btn" (click)="createNewTask()" title="Create New Task">
+    <i class="fab-icon">➕</i>
+  </button>
 </div>
